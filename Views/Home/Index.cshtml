@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Proizvod>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="row">
+        <div class="col-md-4">
+            <a asp-action="Index" asp-route-id="0" class="btn btn-block @(ViewBag.id == 0 ? "btn-primary" : "btn-light")">
+                Svi proizvodi
+            </a>
+
+            @foreach (Kategorija k in ViewBag.Kategorije)
+            {
+                <a asp-action="Index" asp-route-id="@k.KategorijaId" class="btn btn-block @(ViewBag.id == k.KategorijaId ? "btn-primary" : "btn-light")">
+                    @k.Naziv
+                </a>
+            }
+        </div>
+        <div class="col-md-8">
+            @foreach (Proizvod p in Model)
+            {
+                @await Html.PartialAsync("_PrikaziProizvod",p)
+            }
+        </div>
+    </div>
